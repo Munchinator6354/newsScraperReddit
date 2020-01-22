@@ -47,9 +47,6 @@ app.get("/scrape", function (req, res) {
         let $ = cheerio.load(response.data);
         let results = [];
         let commentsLinkArr = [];
-        // let id;
-        // let title;
-        // let link;
 
         $("article").each(function (i, element) {
 
@@ -113,7 +110,7 @@ app.get("/scrape", function (req, res) {
 
 });
 
-// });
+
 
 // Listen on port 3000
 app.listen(3000, function () {

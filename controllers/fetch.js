@@ -1,7 +1,7 @@
 var db = require("../models");
 
 import scrape from "../scripts/scrape";
-// var scrape = require("../scripts/scrape");   (ES5 import)
+// var scrape = require("../scripts/scrape");   (ES5 version of import)
 
 module.exports = {
     scrapedHeadlines: function (req, res) {

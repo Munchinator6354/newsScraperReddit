@@ -7,10 +7,10 @@ function displayResults(redditLinks) {
     redditLinks.forEach(function(redditLinks) {
         //Appends each link's specific property to the table
         var tr = $("<tr>").append(
-            $("<td").text(redditLinks.id),
-            $("td>").text(redditLinks.title),
+            $("<td>").text(redditLinks.id),
+            $("<td>").text(redditLinks.title),
             $("<td>").text(redditLinks.link),
-            $("<td>").text(redditLinks.commentLink)
+            $("<td>").text(redditLinks.commentsLink)
         );
 
         $("tbody").append(tr);
@@ -19,9 +19,7 @@ function displayResults(redditLinks) {
 
 
 
-
-
 //When the page loads, get all the data and display the results
-$.getJSON("/all", function(data) {
-    displayResults(data);
+$.getJSON("/all", function(redditLinks) {
+    displayResults(redditLinks);
 });
