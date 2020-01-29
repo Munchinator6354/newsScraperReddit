@@ -1,5 +1,19 @@
-<div class="container-fluid redditPostsContainer">
+{{!-- <div class="container-fluid redditPostsContainer">
     {{#each handlebarsNews}}
         {{this.title}}
     {{/each}}
+</div> --}}
+
+<div class="container-fluid article-container">
+  {{#each handlebarsNews}}
+  <div data-_id="{{this._id}}" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="btn btn-success save">Save Article</a>
+        {{this.title}}
+      </h3>
+    </div>
+  </div>
+  {{/each}} {{#unless handlebarsNews.length}}
+  {{/unless}}
 </div>

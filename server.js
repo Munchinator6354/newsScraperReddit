@@ -3,16 +3,12 @@ var express = require("express");
 var mongojs = require("mongojs");
 var exphbs = require("express-handlebars");
 
-// Require axios and cheerio. This makes scraping possible.
-var axios = require("axios");
-var cheerio = require("cheerio");
-
 // Initialize Express
 var app = express();
 
 //Database configuration
 var databaseUrl = "scraperReddit";
-var collections = ["scrapedData"];
+var collections = ["Post"];
 
 // Hooks mongojs configuration to the db variable
 var db = mongojs(databaseUrl, collections);

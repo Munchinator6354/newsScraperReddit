@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var NoteSchema = new Schema ({
+var noteSchema = new Schema ({
     id: {
         type: Number,
         required: true,
@@ -27,6 +27,6 @@ var NoteSchema = new Schema ({
     },
 });
 
-var Note = mongoose.model("Note", NoteSchema);
+var Notes = mongoose.model("Notes", noteSchema);
 
-module.exports = Note;
+module.exports = Notes;

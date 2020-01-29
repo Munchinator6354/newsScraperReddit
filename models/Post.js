@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var PostSchema = new Schema ({
+var postSchema = new Schema ({
     id: {
         type: Number,
         required: true,
@@ -32,6 +32,6 @@ var PostSchema = new Schema ({
     }
 });
 
-var Post = mongoose.model("Post", PostSchema);
+var Post = mongoose.model("Posts", postSchema);
 
 module.exports = Post;

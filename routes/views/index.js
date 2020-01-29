@@ -1,12 +1,17 @@
 var router = require("express").Router();
 var db = require("../../models");
+// Require axios and cheerio. This makes scraping possible.
+var axios = require("axios");
+var cheerio = require("cheerio");
 
 router.get("/", function(req, res) {
-    db.Posts.find({saved:false})
+    db.Post.find({saved:false})
     .sort({date:-1})
     .then(function(redditPosts) {
-        res.render("home", {handlebarsNews: redditPosts})
+        res.render("home", {handlebarsNews: redditPosts});
+        console.log(redditPosts);
     });
+    console.log("test");
 });
 
 module.exports = router;
@@ -55,75 +60,74 @@ module.exports = router;
 // })
 
 
-// app.get("/scrape", function (req, res) {
+router.get("/scrape", function (req, res) {
 
-//     axios.get("https://www.reddit.com/r/programming/").then(function (response) {
+    axios.get("https://www.reddit.com/r/programming/").then(function (response) {
+        let $ = cheerio.load(response.data);
+        let results = [];
+        let commentsLinkArr = [];
 
-//         let $ = cheerio.load(response.data);
-//         let results = [];
-//         let commentsLinkArr = [];
+        $("article").each(function (i, element) {
 
-//         $("article").each(function (i, element) {
+            let title = $(element).find("h3").text();
+            let link = $(element).find("a").attr("href");
 
-//             let title = $(element).find("h3").text();
-//             let link = $(element).find("a").attr("href");
+            results.push({
+                // id: i,
+                title: title,
+                link: link
+            });
+            
+        });
+console.log(results);
+    //     $("a[data-click-id=comments]").each(function (i, element) {
 
-//             results.push({
-//                 id: i,
-//                 title: title,
-//                 link: link
-//             });
+    //         let commentsLink = $(element).attr("href");
 
-//         });
+    //         commentsLinkArr.push({
+    //             id: i,
+    //             commentsLink: commentsLink
+    //         });
 
-//         $("a[data-click-id=comments]").each(function (i, element) {
+    //     });
 
-//             let commentsLink = $(element).attr("href");
+    //     function mergeArrayObjects(arr1, arr2) {
+    //         return arr1.map((item, i) => {
+    //             if (item.id === arr2[i].id) {
+    //                 return Object.assign({}, item, arr2[i])
+    //             }
+    //         })
+    //     }
 
-//             commentsLinkArr.push({
-//                 id: i,
-//                 commentsLink: commentsLink
-//             });
+    //     // console.log(mergeArrayObjects(results, commentsLinkArr));
 
-//         });
+    //     let dataReadyForDBLog = mergeArrayObjects(results, commentsLinkArr);
 
-//         function mergeArrayObjects(arr1, arr2) {
-//             return arr1.map((item, i) => {
-//                 if (item.id === arr2[i].id) {
-//                     return Object.assign({}, item, arr2[i])
-//                 }
-//             })
-//         }
+    //     // console.log(dataReadyForDBLog);
 
-//         // console.log(mergeArrayObjects(results, commentsLinkArr));
+    //     // If this found element had an id, title, and link
+    //     if (dataReadyForDBLog !== undefined) {
 
-//         let dataReadyForDBLog = mergeArrayObjects(results, commentsLinkArr);
+    //         // Insert the data in the scrapedData db
+    //         db.Post.insert(dataReadyForDBLog,
 
-//         // console.log(dataReadyForDBLog);
+    //             function (err, inserted) {
+    //                 if (err) {
+    //                     // Log the error if one is encountered during the query
+    //                     console.log(err);
+    //                 }
+    //                 else {
+    //                     // Otherwise, log the inserted data
+    //                     console.log(inserted);
+    //                 };
+    //             });
 
-//         // If this found element had an id, title, and link
-//         if (dataReadyForDBLog !== undefined) {
+    //         //Sends a scrape completed message to the browser
+    //         res.send("Scrape Complete");
+    //     };
+    });
 
-//             // Insert the data in the scrapedData db
-//             db.scrapedData.insert(dataReadyForDBLog,
-
-//                 function (err, inserted) {
-//                     if (err) {
-//                         // Log the error if one is encountered during the query
-//                         console.log(err);
-//                     }
-//                     else {
-//                         // Otherwise, log the inserted data
-//                         console.log(inserted);
-//                     };
-//                 });
-
-//             //Sends a scrape completed message to the browser
-//             res.send("Scrape Complete");
-//         };
-//     });
-
-// });
+});
 
 
 // router.get("/redditlinks", function(req, res) {
