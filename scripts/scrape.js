@@ -48,6 +48,7 @@ module.exports = {
 
             let dataReadyForDBLog = mergeArrayObjects(results, commentsLinkArr);
             // console.log(dataReadyForDBLog)
+            console.log(dataReadyForDBLog)
             return dataReadyForDBLog;
 
 

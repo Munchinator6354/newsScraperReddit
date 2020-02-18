@@ -5,7 +5,7 @@ var db = require("../../models");
 // var cheerio = require("cheerio");
 
 router.get("/", function(req, res) {
-    res.render("home");
+    // res.render("home");
     db.Posts.find({saved:false})
     .sort({date:-1})
     .then(function(redditPosts) {
@@ -15,21 +15,21 @@ router.get("/", function(req, res) {
 
 });
 
-router.get("/all", function(req, res) {
-    console.log("Successful All Page");
-    // Find all results from the scrapedData collection in the db
-    db.scrapedData.find({}, function (error, found) {
-        //Throws any errors
-        if (error) {
-            console.log(error);
-        }
-        // If there are no errors it ill send the data to the browser as json
-        else {
-            res.json(found);
-        }
-    });
+// router.get("/all", function(req, res) {
+//     console.log("Successful All Page");
+//     // Find all results from the scrapedData collection in the db
+//     db.scrapedData.find({}, function (error, found) {
+//         //Throws any errors
+//         if (error) {
+//             console.log(error);
+//         }
+//         // If there are no errors it ill send the data to the browser as json
+//         else {
+//             res.json(found);
+//         }
+//     });
 
-});
+// });
 
 router.get("/saved", function(req, res) {
     db.Posts.find({saved:true})
@@ -79,7 +79,7 @@ module.exports = router;
 //         if (error) {
 //             console.log(error);
 //         }
-//         // If there are no errors it ill send the data to the browser as json
+//         // If there are no errors it will send the data to the browser as json
 //         else {
 //             res.json(found);
 //         }

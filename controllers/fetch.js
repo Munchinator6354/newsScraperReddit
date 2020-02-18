@@ -4,13 +4,16 @@ var scrapedArticlesArray = require("../scripts/scrape");
 
 module.exports = {
     scrapedHeadlines: function (req, res) {
-        console.log(scrapedArticlesArray.scrape)
+        console.log("we made it into the scrapedHeadlines function")
+        // console.log(scrapedArticlesArray.scrape)
         //Scrapes Reddit
         return scrapedArticlesArray.scrape()
-            .then(function (articles) {
-                console.log(articles);
+            .then(function (dataReadyForDBLog) {
+                console.log("we made it into the .then after scraping within scraped Headlines function")
+                // console.log(articles + "this is articles")
+                console.log(dataReadyForDBLog + "this is dataReadForDBLog")
                 // Insert the data in the scrapedData db
-                return db.Posts.insert(articles);
+                return db.Posts.insert(dataReadyForDBLog);
             })
             .then(function (dbPosts) {
                 console.log("dbPosts here!" + dbPosts)

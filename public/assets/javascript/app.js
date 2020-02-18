@@ -32,6 +32,6 @@ function displayResults(redditLinks) {
 
 
 //When the page loads, get all the data and display the results
-$.getJSON("/all", function(redditLinks) {
+$.getJSON("/", function(redditLinks) {
     displayResults(redditLinks);
 });
