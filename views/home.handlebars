@@ -1,8 +1,12 @@
+
 {{!-- <div class="container-fluid redditPostsContainer">
     {{#each handlebarsNews}}
         {{this.title}}
     {{/each}}
 </div> --}}
+<h1>Hello World</h1>
+<button class="scrape">Scrape New Reddit Articles</button>
+
 
 <div class="container-fluid article-container">
   {{#each handlebarsNews}}
@@ -17,3 +21,7 @@
   {{/each}} {{#unless handlebarsNews.length}}
   {{/unless}}
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/assets/javascript/app.js"></script>

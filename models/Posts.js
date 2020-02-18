@@ -19,19 +19,19 @@ var postSchema = new Schema ({
     commentsLink: {
         type: String,
         required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-        required: true
-    },
-    saved: {
-        type: Boolean,
-        default: false,
-        required: true
     }
+    // date: {
+    //     type: Date,
+    //     default: Date.now,
+    //     required: true
+    // },
+    // saved: {
+    //     type: Boolean,
+    //     default: false,
+    //     required: true
+    // }
 });
 
-var Post = mongoose.model("Posts", postSchema);
+var Posts = mongoose.model("Posts", postSchema);
 
-module.exports = Post;
+module.exports = Posts;

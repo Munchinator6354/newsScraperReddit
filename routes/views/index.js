@@ -1,17 +1,44 @@
 var router = require("express").Router();
 var db = require("../../models");
 // Require axios and cheerio. This makes scraping possible.
-var axios = require("axios");
-var cheerio = require("cheerio");
+// var axios = require("axios");
+// var cheerio = require("cheerio");
 
 router.get("/", function(req, res) {
-    db.Post.find({saved:false})
+    res.render("home");
+    db.Posts.find({saved:false})
     .sort({date:-1})
     .then(function(redditPosts) {
         res.render("home", {handlebarsNews: redditPosts});
         console.log(redditPosts);
     });
-    console.log("test");
+
+});
+
+router.get("/all", function(req, res) {
+    console.log("Successful All Page");
+    // Find all results from the scrapedData collection in the db
+    db.scrapedData.find({}, function (error, found) {
+        //Throws any errors
+        if (error) {
+            console.log(error);
+        }
+        // If there are no errors it ill send the data to the browser as json
+        else {
+            res.json(found);
+        }
+    });
+
+});
+
+router.get("/saved", function(req, res) {
+    db.Posts.find({saved:true})
+    .sort({date:-1})
+    .then(function(redditPosts) {
+        res.render("saved", {handlebarsNews: redditPosts});
+        console.log(redditPosts);
+    });
+
 });
 
 module.exports = router;
@@ -44,8 +71,8 @@ module.exports = router;
 //     });
 // });
 
-// //Retrieve data from the db
-// app.get("/all", function (req, res) {
+//Retrieve data from the db
+// router.get("/all", function (req, res) {
 //     // Find all results from the scrapedData collection in the db
 //     db.scrapedData.find({}, function (error, found) {
 //         //Throws any errors
@@ -60,26 +87,26 @@ module.exports = router;
 // })
 
 
-router.get("/scrape", function (req, res) {
+// router.get("/scrape", function (req, res) {
 
-    axios.get("https://www.reddit.com/r/programming/").then(function (response) {
-        let $ = cheerio.load(response.data);
-        let results = [];
-        let commentsLinkArr = [];
+//     axios.get("https://www.reddit.com/r/programming/").then(function (response) {
+//         let $ = cheerio.load(response.data);
+//         let results = [];
+//         let commentsLinkArr = [];
 
-        $("article").each(function (i, element) {
+//         $("article").each(function (i, element) {
 
-            let title = $(element).find("h3").text();
-            let link = $(element).find("a").attr("href");
+//             let title = $(element).find("h3").text();
+//             let link = $(element).find("a").attr("href");
 
-            results.push({
-                // id: i,
-                title: title,
-                link: link
-            });
+//             results.push({
+//                 // id: i,
+//                 title: title,
+//                 link: link
+//             });
             
-        });
-console.log(results);
+//         });
+// console.log(results);
     //     $("a[data-click-id=comments]").each(function (i, element) {
 
     //         let commentsLink = $(element).attr("href");
@@ -109,7 +136,7 @@ console.log(results);
     //     if (dataReadyForDBLog !== undefined) {
 
     //         // Insert the data in the scrapedData db
-    //         db.Post.insert(dataReadyForDBLog,
+    //         db.Posts.insert(dataReadyForDBLog,
 
     //             function (err, inserted) {
     //                 if (err) {
@@ -125,9 +152,9 @@ console.log(results);
     //         //Sends a scrape completed message to the browser
     //         res.send("Scrape Complete");
     //     };
-    });
+//     });
 
-});
+// });
 
 
 // router.get("/redditlinks", function(req, res) {

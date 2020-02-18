@@ -1,6 +1,18 @@
+console.log("app.js is loaded");
+$(document).on("click", ".scrape", handlePostScrape);
+
+function handlePostScrape() {
+    console.log('inside handlePostScrape')
+    $.get("/api/fetch")
+        .then(function(data) {
+            displayResults(data);
+        }
+    )
+}
 
 //Brings in data (JSON) to display in table
 function displayResults(redditLinks) {
+    console.log(redditLinks + "redditlinks here");
     //Empty the Table
     $("tbody").empty();
     //Loops through the array

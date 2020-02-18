@@ -1,28 +1,37 @@
 var db = require("../models");
+var scrapedArticlesArray = require("../scripts/scrape");
 
-import scrape from "../scripts/scrape";
-// var scrape = require("../scripts/scrape");   (ES5 version of import)
 
 module.exports = {
     scrapedHeadlines: function (req, res) {
-        return scrape().then(function (articles) {
-            // If this found element had an id, title, and link
-            if (articles !== undefined) {
+        console.log(scrapedArticlesArray.scrape)
+        //Scrapes Reddit
+        return scrapedArticlesArray.scrape()
+            .then(function (articles) {
+                console.log(articles);
                 // Insert the data in the scrapedData db
-                return db.scrapedData.insert(articles).then(function(err, inserted) {
-                        if (err) {
-                            // Log the error if one is encountered during the query
-                            console.log(err);
-                        }
-                        else {
-                            // Otherwise, log the inserted data
-                            console.log(inserted);
-                            res.json({message: "Scrape Complete"});
-                        };
+                return db.Posts.insert(articles);
+            })
+            .then(function (dbPosts) {
+                console.log("dbPosts here!" + dbPosts)
+                if (db.Posts.length === 0) {
+                    res.json({message: "No new posts today try again later."
                     });
-
+                }
+                else {
+                    // Otherwise, log the inserted data
+                    // console.log(dbPosts);
+                    res.json({
+                        message: "Added " + dbPosts.length + " new Reddit posts!"
+                    });
+                }
+            })
+            .catch(function(err) {
                 //Sends a scrape completed message to the browser
-            };
-        });
+                res.json({
+                    message: "Reddit Scrape Completed!"
+                });
+            });
+
     }
 };
