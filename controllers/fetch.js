@@ -10,20 +10,21 @@ module.exports = {
         return scrapedArticlesArray.scrape()
             .then(function (dataReadyForDBLog) {
                 console.log("we made it into the .then after scraping within scraped Headlines function")
-                // console.log(articles + "this is articles")
-                console.log(dataReadyForDBLog + "this is dataReadForDBLog")
+                console.log(dataReadyForDBLog + "this is dataReadyForDBLog")
+                console.log(dataReadyForDBLog[0])
                 // Insert the data in the scrapedData db
-                return db.Posts.insert(dataReadyForDBLog);
+                return db.Posts.create(dataReadyForDBLog);
             })
-            .then(function (dbPosts) {
+            .then(function(dbPosts) {
                 console.log("dbPosts here!" + dbPosts)
                 if (db.Posts.length === 0) {
-                    res.json({message: "No new posts today try again later."
+                    res.json({
+                        message: "No new posts today try again later."
                     });
                 }
                 else {
                     // Otherwise, log the inserted data
-                    // console.log(dbPosts);
+                    console.log("made it inside else statement");
                     res.json({
                         message: "Added " + dbPosts.length + " new Reddit posts!"
                     });
