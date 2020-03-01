@@ -8,22 +8,39 @@ function displayResults(redditLinks) {
     // var something = JSON.stringify(redditlinks);
     // console.log(something.data);
     //Empty the Table
+    // for(var i=0; i<redditLinks.length; i++) {
+    //     $("#articles").text(redditLinks[i].id);
+    //     $("#articles").text(redditLinks[i].title);
+    //     $("#articles").text(redditLinks[i].link);
+    //     $("#articles").text(redditLinks[i].commentsLink);
+    //     // $("#articles").text(redditLinks[i].id)
+    // };
+    
     console.log(redditLinks + "THTHISIIIFH")
     console.log(JSON.stringify(redditLinks[0].id) + "OHYEAH")
-    $("#articles").text(redditLinks[0].title)
-    $("tbody").empty();
+    $("#articles").text(JSON.stringify(redditLinks));
+        // [0].title)
+    // $("tbody").empty();
     //Loops through the array
-    redditLinks.forEach(function(redditLinks) {
-        //Appends each link's specific property to the table
-        var tr = $("<tr>").append(
-            $("<td>").text(redditLinks.id),
-            $("<td>").text(redditLinks.title),
-            $("<td>").text(redditLinks.link),
-            $("<td>").text(redditLinks.commentsLink)
-        );
 
-        $("tbody").append(tr);
-    });
+    // redditLinks.forEach(function(redditLinks) {
+    //     for (var i=0; i<redditLinks.length; i++) {
+    //         $("#articles").text(redditLinks[i].id + "\n" + redditLinks[i].title + "\n" + redditLinks[i].link + "\n" + redditLinks[i].commentsLink)
+    //     }
+    // });
+
+
+    // redditLinks.forEach(function(redditLinks) {
+    //     //Appends each link's specific property to the table
+    //     var tr = $("<tr>").append(
+    //         $("<td>").text(redditLinks.id),
+    //         $("<td>").text(redditLinks.title),
+    //         $("<td>").text(redditLinks.link),
+    //         $("<td>").text(redditLinks.commentsLink)
+    //     );
+
+    //     $("tbody").append(tr);
+    // });
 }
 
 function handlePostScrape() {
