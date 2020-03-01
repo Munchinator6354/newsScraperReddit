@@ -5,7 +5,7 @@ var cheerio = require("cheerio");
 module.exports = {
     scrape: function () {
         return axios.get("https://www.reddit.com/r/programming/").then(function (response) {
-
+            // console.log(response.data + "this is response.data")
             let $ = cheerio.load(response.data);
             console.log("Scraping Has Started!");
             let results = [];
@@ -47,7 +47,6 @@ module.exports = {
             // console.log(mergeArrayObjects(results, commentsLinkArr));
 
             let dataReadyForDBLog = mergeArrayObjects(results, commentsLinkArr);
-            // console.log(dataReadyForDBLog)
             console.log(dataReadyForDBLog)
             return dataReadyForDBLog;
 

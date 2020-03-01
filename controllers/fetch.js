@@ -5,19 +5,21 @@ var scrapedArticlesArray = require("../scripts/scrape");
 module.exports = {
     scrapedHeadlines: function (req, res) {
         console.log("we made it into the scrapedHeadlines function")
-        // console.log(scrapedArticlesArray.scrape)
+        console.log(scrapedArticlesArray + "HEYHEYHEY");
         //Scrapes Reddit
         return scrapedArticlesArray.scrape()
             .then(function (dataReadyForDBLog) {
                 console.log("we made it into the .then after scraping within scraped Headlines function")
-                console.log(dataReadyForDBLog + "this is dataReadyForDBLog")
-                console.log(dataReadyForDBLog[0])
+                console.log(dataReadyForDBLog + "this is what dataReadyForDBLog")
+                // console.log(dataReadyForDBLog[0])
                 // Insert the data in the scrapedData db
-                return db.Posts.create(dataReadyForDBLog);
+                console.log(dataReadyForDBLog[0] + "this is what dataREadyForDBLog[0] looks like");
+                return db.Posts.insert(dataReadyForDBLog);
             })
             .then(function(dbPosts) {
+                console.log(dbPosts);
                 console.log("dbPosts here!" + dbPosts)
-                if (db.Posts.length === 0) {
+                if (dbPosts.length === 0) {
                     res.json({
                         message: "No new posts today try again later."
                     });
