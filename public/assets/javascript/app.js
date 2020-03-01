@@ -1,16 +1,6 @@
 console.log("app.js is loaded");
 $(document).on("click", ".scrape", handlePostScrape);
 
-function handlePostScrape() {
-    console.log('inside handlePostScrape')
-    $.get("/api/fetch")
-        .then(function(data) {
-            console.log(data);
-            displayResults(data);
-        }
-    )
-}
-
 //Brings in data (JSON) to display in table
 function displayResults(redditLinks) {
     // console.log(redditLinks + "redditlinks here");
@@ -18,6 +8,9 @@ function displayResults(redditLinks) {
     // var something = JSON.stringify(redditlinks);
     // console.log(something.data);
     //Empty the Table
+    console.log(redditLinks + "THTHISIIIFH")
+    console.log(JSON.stringify(redditLinks[0].id) + "OHYEAH")
+    $("#articles").text(redditLinks[0].title)
     $("tbody").empty();
     //Loops through the array
     redditLinks.forEach(function(redditLinks) {
@@ -32,6 +25,18 @@ function displayResults(redditLinks) {
         $("tbody").append(tr);
     });
 }
+
+function handlePostScrape() {
+    console.log('inside handlePostScrape')
+    $.get("/api/fetch")
+        .then(function(data) {
+            console.log(data + "THIS DATA");
+            displayResults(data);
+        }
+    )
+}
+
+
 
 
 
