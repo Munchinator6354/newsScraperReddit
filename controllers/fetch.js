@@ -14,7 +14,7 @@ module.exports = {
                 // console.log(dataReadyForDBLog[0])
                 // Insert the data in the scrapedData db
                 console.log(dataReadyForDBLog[0] + "this is what dataREadyForDBLog[0] looks like");
-                return db.Posts.insert(dataReadyForDBLog);
+                return db.Posts.create(dataReadyForDBLog);
             })
             .then(function(dbPosts) {
                 console.log(dbPosts);
