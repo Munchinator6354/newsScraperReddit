@@ -5,6 +5,7 @@ function handlePostScrape() {
     console.log('inside handlePostScrape')
     $.get("/api/fetch")
         .then(function(data) {
+            console.log(data);
             displayResults(data);
         }
     )
@@ -12,8 +13,8 @@ function handlePostScrape() {
 
 //Brings in data (JSON) to display in table
 function displayResults(redditLinks) {
-    console.log(redditLinks + "redditlinks here");
-    console.log(redditlinks[0].id);
+    // console.log(redditLinks + "redditlinks here");
+    // console.log(redditlinks[0].id);
     // var something = JSON.stringify(redditlinks);
     // console.log(something.data);
     //Empty the Table
